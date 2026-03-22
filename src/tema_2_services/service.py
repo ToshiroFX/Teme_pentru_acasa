@@ -42,7 +42,7 @@ class RAGAssistant:
 
         # ToDo: Adaugat o propozitie de referinta mai specifica pentru domeniul dvs
         self.relevance = self._embed_texts(
-            "Intrebari despre servicii IT pentru firme, mentenanta IT, suport tehnic, securitate cibernetica, infrastructura IT, cloud, retele si administrare sisteme",
+            "Servicii IT pentru companii, MSP, suport tehnic, infrastructura IT, administrare sisteme, securitate cibernetica, cloud, backup, retele, optimizare costuri IT",
         )[0]
 
         # ToDo: Definiti un prompt de sistem mai detaliat pentru a ghida raspunsurile LLM-ului in directia dorita
@@ -136,6 +136,7 @@ class RAGAssistant:
                     f"Intrebare:\n{user_input}\n\n"
                     "Foloseste contextul daca este relevant. "
                     "Daca nu, raspunde din cunostinte generale, dar mentioneaza asta. "
+                    "Nu inventa informatii care nu apar in context. "
                     "Raspunsul trebuie sa fie clar, structurat si util pentru o companie."
                 ),
             },
@@ -265,7 +266,7 @@ class RAGAssistant:
     def is_relevant(self, user_input: str) -> bool:
         # ToDo: Ajustati pragul de similaritate pentru a se potrivi mai bine cu domeniul dvs, astfel incat sa echilibreze corect intre a permite intrebari relevante si a respinge cele irelevante.
         """Verifica daca intrarea utilizatorului e despre servicii IT pentru firme."""
-        return self.calculate_similarity(user_input) >= 0.65
+        return self.calculate_similarity(user_input) >= 0.45
 
     def assistant_response(self, user_message: str) -> str:
         """Directioneaza mesajul utilizatorului catre calea potrivita."""
